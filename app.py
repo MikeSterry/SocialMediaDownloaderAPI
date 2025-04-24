@@ -4,7 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from utils.Constants import *
 from utils.FileSystemCleaner import FileSystemCleaner
-import logging
+import logging, os
 
 from handlers.InstagramHandler import InstagramHandler
 
