@@ -1,0 +1,8 @@
+INSTAGRAM_DOT_COM = "instagram.com"
+FACEBOOK_DOT_COM = "facebook.com"
+YOUTUBE_DOT_COM = "youtube.com"
+THREADS_DOT_COM = "threads.com"
+PINTEREST_DOT_COM = "pinterest.com"
+LINKEDIN_DOT_COM = "linkedin.com"
+VIMEO_DOT_COM = "vimeo.com"
+X_DOT_COM = "x.com"
