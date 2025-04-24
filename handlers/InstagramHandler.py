@@ -1,14 +1,19 @@
 from instaloader import Instaloader, Post
 
+from handlers.FileHandler import FileHandler
+
+
 class InstagramHandler:
     def __init__(self):
-        self.loader = Instaloader(dirname_pattern="/output/{target}", save_metadata=False, download_video_thumbnails=False)
+        self.output_dir = "/output/instagram/"
+        self.loader = Instaloader(dirname_pattern=self.output_dir + "{target}", save_metadata=False, download_video_thumbnails=False)
+        self.filehandler = FileHandler()
 
     def download_video(self, url: str) -> bytes:
         shortcode = self._get_shortcode_from_url(url)
         post = self._download_post_from_shortcode(shortcode)
         video_file_location = self._get_post_file(post)
-        video_data = self._get_video_data(video_file_location)
+        video_data = self.filehandler.read_video_file(video_file_location)
         return video_data
 
     def _get_shortcode_from_url(self, url: str) -> str:
@@ -30,15 +35,10 @@ class InstagramHandler:
         return post
 
     def _get_post_file(self, post: Post) -> str:
-        directory = f'/output/{post.owner_username}'
+        directory = f'{self.output_dir}{post.owner_username}'
         formatted_post_date = post.date_utc.strftime('%Y-%m-%d_%H-%M-%S')
         file_extension = 'jpg'
         if post.is_video:
             file_extension = 'mp4'
         filename = f'{formatted_post_date}_UTC.{file_extension}'
         return f'{directory}/{filename}'
-
-    def _get_video_data(self, video_file_location: str) -> bytes:
-        with open(video_file_location, 'rb') as f:
-            video_data = f.read()
-            return video_data

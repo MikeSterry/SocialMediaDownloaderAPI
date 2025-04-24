@@ -6,3 +6,5 @@ PINTEREST_DOT_COM = "pinterest.com"
 LINKEDIN_DOT_COM = "linkedin.com"
 VIMEO_DOT_COM = "vimeo.com"
 X_DOT_COM = "x.com"
+
+VIDEO_MP4 = "video/mp4"
