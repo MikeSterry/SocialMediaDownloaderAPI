@@ -49,7 +49,7 @@ def download_generic():
     elif VIMEO_DOT_COM in url.lower():
         return Response("Service does not accept Vimeo at this time", status=400)
     elif X_DOT_COM in url:
-        return Response("No plans to accept X/Twitter posts - not going to pay them to download media", status=400)
+        return download_from_x(url)
     else:
         return Response("Invalid Service", status=400)
 
@@ -63,6 +63,13 @@ def download_from_instagram(url):
     instagram_handler = InstagramHandler()
     video_data = instagram_handler.download_video(url)
     return Response(video_data, mimetype='video/mp4')
+
+def download_from_x(url):
+    logging.info(f'Downloading content from X URL: {url}')
+    logging.info('No plans to accept X/Twitter posts - returning x default response')
+    cwd = os.getcwd()
+    x_default_pic = cwd + '/static/x_default_pic.jpeg'
+    return Response(x_default_pic, mimetype='image/jpg')
 
 @app.route('/up', methods=['GET'])
 def up_page():
