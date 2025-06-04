@@ -7,8 +7,7 @@ from handlers.FileHandler import FileHandler
 
 class YouTubeHandler:
     def __init__(self):
-        # self.output_dir = "/output/youtube/"
-        output_dir = "/Users/mike/downloads/youtube/"
+        output_dir = "/output/youtube/"
         video_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s'
         audio_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s'
         self.video_opts = {
