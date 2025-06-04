@@ -64,7 +64,7 @@ def download_generic():
 @app.route('/download_youtube_audio', methods=['GET'])
 def download_youtube_audio():
     url = request.args.get('url')
-    logging.info(f'Received request to download content from url: {url}')
+    logging.info(f'Received request to download YouTube audio from url: {url}')
     if not url:
         logging.error('Invalid request. No url provided')
         return Response("Invalid Request. No url provided", status=400)

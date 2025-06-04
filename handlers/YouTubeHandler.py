@@ -7,7 +7,8 @@ from handlers.FileHandler import FileHandler
 
 class YouTubeHandler:
     def __init__(self):
-        output_dir = "/output/youtube/"
+        # output_dir = "/output/youtube/"
+        output_dir = "/Users/mike/downloads/youtube"
         video_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s.%(ext)s'
         audio_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s.%(ext)s'
         self.video_opts = {
@@ -54,17 +55,19 @@ class YouTubeHandler:
 
     def _download_video(self, url) -> str:
         with self.yt_dlp.YoutubeDL(self.video_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=False)
-            ydl.download([url])
-            file_path = ydl.prepare_filename(info_dict) #+ '.mp4'
+            info_dict = ydl.extract_info(url, download=True)
+            # ydl.download([url])
+            file_path = ydl.prepare_filename(info_dict).replace('.webm', '.mp4').replace('.temp', '.mp4')
             return file_path
 
 
     def _download_audio(self, url):
         with self.yt_dlp.YoutubeDL(self.audio_opts) as ydl:
-            info_dict = ydl.extract_info(url, download=False)
-            ydl.download([url])
-            file_path = ydl.prepare_filename(info_dict) #+ '.mp3'
+            info_dict = ydl.extract_info(url, download=True)
+            # ydl.download([url])
+            # strip extension name from file path
+            # and replace with .mp3
+            file_path = ydl.prepare_filename(info_dict).replace('.webm', '.mp3').replace('.temp', '.mp3')
             return file_path
 
     def _yt_dlp_monitor(self, d):
