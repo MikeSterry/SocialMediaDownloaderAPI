@@ -22,3 +22,9 @@ class FileHandler:
                 t.update(len(data))
                 f.write(data)
         t.close()
+
+    def delete_file(self, filename: str):
+        if os.path.exists(filename):
+            os.remove(filename)
+        else:
+            print(f"The file {filename} does not exist.")

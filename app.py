@@ -8,6 +8,7 @@ import logging
 from handlers.InstagramHandler import InstagramHandler
 from handlers.TwitterHandler import TwitterHandler
 from handlers.FacebookHandler import FacebookHandler
+from handlers.YouTubeHandler import YouTubeHandler
 from utils.FileSystemCleaner import FileSystemCleaner
 from utils.Constants import *
 
@@ -43,7 +44,7 @@ def download_generic():
         elif FACEBOOK_DOT_COM in url.lower():
             return download_from_facebook(url)
         elif YOUTUBE_DOT_COM in url.lower():
-            return Response("Service does not accept YouTube at this time", status=400)
+            return download_from_youtube(url)
         elif THREADS_DOT_COM in url.lower():
             return Response("Service does not accept Threads at this time", status=400)
         elif PINTEREST_DOT_COM in url.lower():
@@ -60,11 +61,34 @@ def download_generic():
         logging.error(f"Error processing request: {e}")
         return Response("Unable to generate video output", status=500)
 
+@app.route('/download_youtube_audio', methods=['GET'])
+def download_youtube_audio():
+    url = request.args.get('url')
+    logging.info(f'Received request to download content from url: {url}')
+    if not url:
+        logging.error('Invalid request. No url provided')
+        return Response("Invalid Request. No url provided", status=400)
+
+    try:
+        logging.info(f'Downloading audio content from YouTube URL: {url}')
+        youtube_handler = YouTubeHandler()
+        audio_data = youtube_handler.download(url, True)
+        return Response(audio_data, mimetype=AUDIO_MPEG)
+    except Exception as e:
+        logging.error(f"Error processing request: {e}")
+        return Response("Unable to generate video output", status=500)
+
 def download_from_instagram(url):
     logging.info(f'Downloading content from Instagram URL: {url}')
     instagram_handler = InstagramHandler()
     video_data = instagram_handler.download_video(url)
     return Response(video_data, mimetype=VIDEO_MP4)
+
+def download_from_youtube(url, audio: bool = False):
+    logging.info(f'Downloading content from YouTube URL: {url}')
+    youtube_handler = YouTubeHandler()
+    video_data = youtube_handler.download(url, audio)
+    return Response(video_data, mimetype='x-matroska')
 
 def download_from_facebook(url):
     logging.info(f'Downloading content from Facebook URL: {url}')
