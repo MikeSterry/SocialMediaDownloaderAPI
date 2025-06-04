@@ -15,6 +15,7 @@ class YouTubeHandler:
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
             'outtmpl': video_filename_processor,
             'progress_hooks': [self._yt_dlp_monitor],
+            'quiet': True,
             'noplaylist': True,
             'getfilename': True,
         }
