@@ -8,3 +8,4 @@ VIMEO_DOT_COM = "vimeo.com"
 X_DOT_COM = "x.com"
 
 VIDEO_MP4 = "video/mp4"
+AUDIO_MPEG = "audio/mpeg"
