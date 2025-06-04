@@ -7,10 +7,10 @@ from pytubefix.cli import on_progress
 from handlers.FileHandler import FileHandler
 
 
-class InstagramHandler:
-    def __init__(self):
+class YouTubeHandler:
+    def __init__(self, url: str):
         self.output_dir = "/output/youtube/"
-        self.yt = YouTube("{target}", on_progress_callback=on_progress)
+        self.yt = YouTube(url, on_progress_callback=on_progress)
         self.filehandler = FileHandler()
 
     def download_youtube(self) -> Optional[bytes]:

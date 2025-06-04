@@ -8,6 +8,7 @@ import logging
 from handlers.InstagramHandler import InstagramHandler
 from handlers.TwitterHandler import TwitterHandler
 from handlers.FacebookHandler import FacebookHandler
+from handlers.YouTubeHandler import YouTubeHandler
 from utils.FileSystemCleaner import FileSystemCleaner
 from utils.Constants import *
 
@@ -43,7 +44,7 @@ def download_generic():
         elif FACEBOOK_DOT_COM in url.lower():
             return download_from_facebook(url)
         elif YOUTUBE_DOT_COM in url.lower():
-            return Response("Service does not accept YouTube at this time", status=400)
+            return download_from_youtube(url)
         elif THREADS_DOT_COM in url.lower():
             return Response("Service does not accept Threads at this time", status=400)
         elif PINTEREST_DOT_COM in url.lower():
@@ -64,6 +65,12 @@ def download_from_instagram(url):
     logging.info(f'Downloading content from Instagram URL: {url}')
     instagram_handler = InstagramHandler()
     video_data = instagram_handler.download_video(url)
+    return Response(video_data, mimetype=VIDEO_MP4)
+
+def download_from_youtube(url):
+    logging.info(f'Downloading content from YouTube URL: {url}')
+    youtube_handler = YouTubeHandler(url)
+    video_data = youtube_handler.download_youtube()
     return Response(video_data, mimetype=VIDEO_MP4)
 
 def download_from_facebook(url):
