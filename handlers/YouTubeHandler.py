@@ -8,8 +8,8 @@ from handlers.FileHandler import FileHandler
 class YouTubeHandler:
     def __init__(self):
         output_dir = "/output/youtube/"
-        video_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s'
-        audio_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s'
+        video_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s.%(ext)s'
+        audio_filename_processor = output_dir.rstrip('/') + '/' + '%(title)s.%(ext)s'
         self.video_opts = {
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
             'outtmpl': video_filename_processor,
@@ -56,7 +56,7 @@ class YouTubeHandler:
         with self.yt_dlp.YoutubeDL(self.video_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
             ydl.download([url])
-            file_path = ydl.prepare_filename(info_dict) + '.mp4'
+            file_path = ydl.prepare_filename(info_dict) #+ '.mp4'
             return file_path
 
 
@@ -64,7 +64,7 @@ class YouTubeHandler:
         with self.yt_dlp.YoutubeDL(self.audio_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
             ydl.download([url])
-            file_path = ydl.prepare_filename(info_dict) + '.mp3'
+            file_path = ydl.prepare_filename(info_dict) #+ '.mp3'
             return file_path
 
     def _yt_dlp_monitor(self, d):
