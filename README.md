@@ -11,6 +11,15 @@ A simple API to download media from various social media platforms.
 - Run docker-compose up
 - Access the API at `http://localhost:8000`
 
+## Run locally
+- Clone the repository
+- Install ffmpeg binaries
+- Build the python virtual environment
+    - python -m venv .venv
+    - source .venv/bin/activate
+    - .venv/bin/pip install -r requirements.txt
+- run python app.py
+
 ## Extra
 - Put the API behind a reverse proxy like Nginx or Traefik
 - Use a custom domain
