@@ -1,18 +1,15 @@
-from io import BytesIO
-
 from flask import Flask, request, Response
 from werkzeug.middleware.proxy_fix import ProxyFix
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 
 from handlers.InstagramHandler import InstagramHandler
-from handlers.TwitterHandler import TwitterHandler
-from handlers.FacebookHandler import FacebookHandler
-from handlers.YouTubeHandler import YouTubeHandler
+from handlers import YouTubeHandler, FacebookHandler, TwitterHandler
 from utils.FileSystemCleaner import FileSystemCleaner
 from utils.Constants import *
 
-""" This script sets up a Flask application that provides endpoints to download videos from various social media platforms.
+""" 
+This script sets up a Flask application that provides endpoints to download videos from various social media platforms.
 It includes a scheduled job to clean up resources older than 7 days from the output directory.
 It uses handlers for Instagram, YouTube, Facebook, and Twitter to manage the download processes.
 It also includes a file system cleaner utility to remove old files from the output directory.

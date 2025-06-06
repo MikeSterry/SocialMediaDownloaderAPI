@@ -1,6 +1,6 @@
 from typing import Optional
 
-import yt_dlp, logging, os
+import yt_dlp, logging
 
 from handlers.FileHandler import FileHandler
 
@@ -41,7 +41,8 @@ class YouTubeHandler:
             logging.error(f"Error downloading from YouTube: {e}")
             raise ValueError("YouTube download failed. Check logs for details.")
 
-    """ Download a video from YouTube using the provided URL.
+    """ 
+    Download a video from YouTube using the provided URL.
     :param url: The URL of the YouTube video.
     :return: The file path of the downloaded video.
     """
@@ -56,7 +57,8 @@ class YouTubeHandler:
             logging.error(f"Error downloading video from YouTube: {e}")
             raise ValueError("YouTube video download failed. Check logs for details.")
 
-    """ Download audio from YouTube using the provided URL.
+    """ 
+    Download audio from YouTube using the provided URL.
     :param url: The URL of the YouTube video.
     :return: The file path of the downloaded audio.
     """
